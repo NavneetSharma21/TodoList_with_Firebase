@@ -91,7 +91,7 @@ export const FirebaseProvider = (props) => {
                     createdAt: serverTimestamp(),
                 })
                 console.log('user Store in FireStore')
-                window.location.href = 'https://todolist-with-firebase.onrender.com/login';
+                window.location.href = "https://todolist-with-firebase.onrender.com/login";
             }
         } catch (error) {
             console.error(error.message);

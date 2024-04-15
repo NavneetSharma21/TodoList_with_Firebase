@@ -18,7 +18,7 @@ const SignUp = () => {
           e.preventDefault();
           Firebase.handleSignUp(email, password)
         }}>SignUp</button>
-        <p>Already have an account <NavLink className='navLink' to="/login">Login</NavLink></p>
+        <p>Already have an account <NavLink className='navLink' to="https://todolist-with-firebase.onrender.com/login">Login</NavLink></p>
       </form>
     </div>
   )
