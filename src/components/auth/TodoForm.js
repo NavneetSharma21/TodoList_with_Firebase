@@ -49,9 +49,9 @@ const TodoForm = (props) => {
             </input>
             <select className="select" value={priority}
                 onChange={(e) => setPriority(e.target.value)}>
-                <option value="low">low</option>
-                <option value="medium">medium</option>
-                <option value="high">high</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
             </select>
             <button type="submit" onClick={handleTaskSubmit}>Add task</button>
             <button onClick={props.toggleForm}>Close</button>

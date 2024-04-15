@@ -104,12 +104,22 @@ export const FirebaseProvider = (props) => {
         }
         try {
             const userTodo = collection(DbStore, "TodoLists")
-            await addDoc(userTodo, {
-                userId: authUser,
-                title: todoTitle,
-                createdAt: serverTimestamp(),
-            })
-            console.log("ToDo created in DbStore")
+            const querySnapshot = await getDocs(
+                query(userTodo, where("userId", "==", authUser))
+            );
+            const titles = querySnapshot.docs.map(doc => doc.data().title);
+    
+            if (titles.includes(todoTitle)) {
+                alert("Todo title already exists.");
+            }else{
+                await addDoc(userTodo, {
+                    userId: authUser,
+                    title: todoTitle,
+                    createdAt: serverTimestamp(),
+                })
+                console.log("ToDo created in DbStore")
+            }
+           
         }
         catch (error) {
             console.error("todo not created", error.message);
