@@ -18,7 +18,7 @@ const Routers = () => {
             <Routes>
                 <Route path="/" element={<SignUp />}></Route>
                 <Route path="https://todolist-with-firebase.onrender.com/login" element={loggedInUser ? (<Navigate to="https://todolist-with-firebase.onrender.com/todo-list" />) : (<Login />)}></Route>
-                <Route path="https://todolist-with-firebase.onrender.com/login/todo-list" element={loggedInUser ? <ToDoList /> : <Navigate to="https://todolist-with-firebase.onrender.com/login" />}
+                <Route path="https://todolist-with-firebase.onrender.com/todo-list" element={loggedInUser ? <ToDoList /> : <Navigate to="https://todolist-with-firebase.onrender.com/login" />}
                 />
             </Routes>
         </>
