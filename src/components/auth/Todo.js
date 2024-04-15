@@ -45,9 +45,9 @@ const ToDo = (props) => {
   const onDrops = async (e, todoList) => {
     e.preventDefault();   
           try {
-          await Firebase.updateAfterDragAndDrop(todoList);
-          console.log("Success: Task list updated");
-          updateCurrentTasks();                 
+          Firebase.updateAfterDragAndDrop(todoList);
+          updateCurrentTasks();    
+          console.log("Success: Task list updated");             
           } catch (error) {
             console.error("Error updating task list:", error.message);
         }

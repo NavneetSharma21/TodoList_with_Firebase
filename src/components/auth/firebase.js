@@ -110,7 +110,6 @@ export const FirebaseProvider = (props) => {
                 createdAt: serverTimestamp(),
             })
             console.log("ToDo created in DbStore")
-            alert("ToDo created in DbStore")
         }
         catch (error) {
             console.error("todo not created", error.message);
@@ -153,7 +152,6 @@ export const FirebaseProvider = (props) => {
                 createdAt: serverTimestamp(),
             })
             console.log("Task created in DbStore")
-            alert("Task created in DbStore")
         } catch (error) {
             console.log(error.message)
         }

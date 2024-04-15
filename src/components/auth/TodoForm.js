@@ -43,8 +43,7 @@ const TodoForm = (props) => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}>
             </input>
-            <input type="text"
-                placeholder="fill todo's due date"
+            <input type="date"
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}>
             </input>

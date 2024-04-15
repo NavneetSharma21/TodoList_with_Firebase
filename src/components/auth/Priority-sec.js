@@ -10,8 +10,7 @@ const Firebase = useFirebase();
     const onDrop =async (e, Priority)=>{
         e.preventDefault();   
         try {
-        await Firebase.updatePriorityAfterDrag(Priority);
-       alert("Priority changed")          
+        await Firebase.updatePriorityAfterDrag(Priority); 
         } catch (error) {
           console.error("Error updating task list:", error.message);
       }
