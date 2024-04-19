@@ -13,7 +13,11 @@ const ToDoList = () => {
             try {
                 const fetched = await Firebase.getTodoInStore(
                     Firebase.loggedInUser()?.uid)
-                setLists(fetched || [])
+                    if (Array.isArray(fetched)) {
+                        setLists(fetched);
+                      } else {
+                        console.error("Fetched ToDo lists is not an array.");
+                      }
             }
             catch (error) {
                 console.log('Todo not found', error.message)
@@ -63,7 +67,7 @@ const ToDoList = () => {
 
                 <div className="show-todo">
                     {lists.map((list, index) => (
-                        <ToDo key={index} ListName={list}></ToDo>
+                        <ToDo key={index} ListName={list.title} id={list.id}></ToDo>
                     ))}
                 </div>
             </div>

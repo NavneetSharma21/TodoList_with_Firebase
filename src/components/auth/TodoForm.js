@@ -15,10 +15,12 @@ const TodoForm = (props) => {
             const taskDescription = description;
             const taskDueDate = dueDate;
             const taskPriority = priority;
+            const todoTitle = props.ListName;
+            const TodoId = props.todoId;
             if (!loggedId) {
                 console.log('user not exist')
             }
-            await Firebase.addTasksInTodo(loggedId, taskTitle, taskDescription, taskDueDate, taskPriority, props?.ListName)
+            await Firebase.addTasksInTodo(loggedId, taskTitle, taskDescription, taskDueDate, taskPriority, todoTitle, TodoId)
             props.updateTasks();
             console.log("Successfully added task")
             setTitle('');

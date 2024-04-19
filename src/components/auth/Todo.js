@@ -61,7 +61,9 @@ const ToDo = (props) => {
           <button onClick={toggleTaskForm}>Add Task</button>
           {
             showTaskForm &&
-            <TodoForm ListName={props.ListName}
+            <TodoForm
+              ListName={props.ListName}
+              todoId={props.id}
               toggleForm={toggleTaskForm}
               show={showTaskForm}
               updateTasks={updateCurrentTasks} />

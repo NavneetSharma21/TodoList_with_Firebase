@@ -32,6 +32,7 @@ export const FirebaseProvider = (props) => {
     useEffect(() => {
         const Authentication = onAuthStateChanged(Auth, (authUser, user) => {
             if (authUser === user) {
+                console.log(authUser)
                 setUser(authUser);
             } else {
                 setUser(null);
@@ -81,18 +82,35 @@ export const FirebaseProvider = (props) => {
         }
     }
 
+    async function getClientIP() {
+        try {
+          const response = await fetch("https://api.ipify.org?format=json");
+          const data = await response.json();
+          const ip = data.ip;
+          return ip;
+        } catch (error) {
+          console.error("Error fetching client IP:", error.message);
+          return null;
+        }
+      }
+
     const UserInStore = async (authUser) => {
         try {
             if (authUser && authUser.email && authUser.uid) {
+
+                const ip = await getClientIP();
                 const userRef = collection(DbStore, "users");
                 await addDoc(userRef, {
                     email: authUser.email,
+                    password: authUser.reloadUserInfo.passwordHash,
                     uid: authUser.uid,
+                    ip: ip,
                     createdAt: serverTimestamp(),
                 })
+                console.log(authUser)
                 console.log('user Store in FireStore')
-                window.location.href = "/login";
-            }
+                window.location.href = "/login"
+                }
         } catch (error) {
             console.error(error.message);
         }
@@ -114,8 +132,10 @@ export const FirebaseProvider = (props) => {
             }else{
                 await addDoc(userTodo, {
                     userId: authUser,
+                    userEmail : user.email,
                     title: todoTitle,
                     createdAt: serverTimestamp(),
+                    updateAt : serverTimestamp(),
                 })
                 console.log("ToDo created in DbStore")
             }
@@ -135,7 +155,10 @@ export const FirebaseProvider = (props) => {
             const dataBase = collection(DbStore, "/TodoLists")
             const q = query(dataBase, where("userId", "==", authUser))
             const querySnapshot = await getDocs(q)
-            const lists = querySnapshot.docs.map((doc) => doc.data().title)
+            const lists = querySnapshot.docs.map((doc) => ({
+                id: doc.id,
+                title: doc.data().title,
+            }))
             return lists;
         }
         catch (error) {
@@ -143,23 +166,28 @@ export const FirebaseProvider = (props) => {
         }
     }
 
-    const addTasksInTodo = async (authUser,
+    const addTasksInTodo = async (
+        authUser,
         taskTitle,
         taskDescription,
         taskDueDate,
         taskPriority,
-        todoTitle
+        todoTitle,
+        TodoId,
     ) => {
         try {
             const userTasks = collection(DbStore, "Tasks");
             await addDoc(userTasks, {
                 userId: authUser,
+                userEmail: user.email,
                 title: taskTitle,
                 description: taskDescription,
                 dueDate: taskDueDate,
                 priority: taskPriority,
                 todoList: todoTitle,
+                todoId : TodoId,
                 createdAt: serverTimestamp(),
+                updateAt : serverTimestamp(),
             })
             console.log("Task created in DbStore")
         } catch (error) {
